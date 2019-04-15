@@ -18,7 +18,11 @@ const builtinExtensions = {
     videoSensing: () => require('../extensions/scratch3_video_sensing'),
     speech2text: () => require('../extensions/scratch3_speech2text'),
     ev3: () => require('../extensions/scratch3_ev3'),
-    makeymakey: () => require('../extensions/scratch3_makeymakey')
+    makeymakey: () => require('../extensions/scratch3_makeymakey'),
+	parrotMamboBlocks: () => require('../extensions/scratch3_parrot_mambo'),
+	djiTelloBlocks: () => require('../extensions/scratch3_dji_tello'),
+	djiPhantom4Blocks: () => require('../extensions/scratch3_dji_phantom4'),
+	smartAgriIoTBlocks: () => require('../extensions/scratch3_smart_agri_IoT'),
     // todo: only load this extension once we have a compatible way to load its
     // Vernier module dependency.
     // gdxfor: () => require('../extensions/scratch3_gdx_for')
