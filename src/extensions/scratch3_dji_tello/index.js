@@ -22,10 +22,11 @@ class DjiTelloBlocks {
      * @param {Runtime} runtime - the Scratch 3.0 runtime.
      */
     constructor (runtime) {
-		this.runtime = runtime;
+        this.runtime = runtime;
+        id = "0";
 		stageId = 2;
 		changeStage(stageId);
-		djiTelloInstance = UnityLoader.instantiate("djiTello_drone", "static/dji_tello/dji_tello.json");
+		unityInstance = UnityLoader.instantiate("djiTello_drone", "static/dji_tello/dji_tello.json");
     }
 
     /**
@@ -321,7 +322,7 @@ class DjiTelloBlocks {
 
 	reset()
 	{
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,3");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_RESET_ALL");
 		return;
 	}
 
@@ -352,19 +353,19 @@ class DjiTelloBlocks {
 
 	takeoff(args)
 	{
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,4");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_TAKE_OFF");
 		return;
 	}
 
 	landing(args)
 	{
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,5");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_LANDING");
 		return;
 	}
 
 	stop(args)
 	{
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,2");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_STOP");
 		return;
 	}
 	
@@ -375,7 +376,7 @@ class DjiTelloBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n;
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,120,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_GAZ,0," + a * tmp );
 
 		return;
 	}
@@ -387,7 +388,7 @@ class DjiTelloBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n;
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,110,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_PITCH,0," + a * tmp );
 
 		return;
 	}
@@ -399,7 +400,7 @@ class DjiTelloBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n;
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,100,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_ROLL,0," + a * tmp );
 
 		return;
 	}
@@ -411,7 +412,7 @@ class DjiTelloBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n;
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,130,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_YAW,0," + a * tmp );
 
 		return;
 	}
@@ -423,7 +424,7 @@ class DjiTelloBlocks {
 			a = -1;
 
 		var tmp = args.n > 360 ? 360 : args.n;
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,200,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + "0,ACTION_CAP,0," + a * tmp );
 
 		return;
 	}
@@ -447,13 +448,13 @@ class DjiTelloBlocks {
 				break;
 		}
 	
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,210," + a);
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_FLIP," + a);
 		return;
 	}	
 
 	light(args)
 	{
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,220,0," + args.n * 255);
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_LIGHT,0," + args.n * 255);
 		return;
 	}
 	
@@ -466,8 +467,8 @@ class DjiTelloBlocks {
 	picture(args)
 	{
 		// WebGL側はコマンド未実装
-//		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,7");
-		return;
+        unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_PICTURE");
+        return;
 	}
 	
 	searchColor(args)
@@ -499,7 +500,7 @@ class DjiTelloBlocks {
 
 		var str = r * tmp_r + ":" + p * tmp_p + ":" + g * tmp_g + ":" + y * tmp_y;
 
-		djiTelloInstance.SendMessage("Drones", "Scratch3", "0,140,0," + str );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_4_AXIS,0," + str );
 
 		return;
 	}

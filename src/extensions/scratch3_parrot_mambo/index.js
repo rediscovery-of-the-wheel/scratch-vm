@@ -22,11 +22,12 @@ class ParrotMamboBlocks {
      * @param {Runtime} runtime - the Scratch 3.0 runtime.
      */
     constructor (runtime) {
-		this.runtime = runtime;
+        this.runtime = runtime;
+        id = "0";
 
 		stageId = 1;
 		changeStage(stageId);
-		gameInstance = UnityLoader.instantiate("gameContainer_drone", "static/WebGL/WebGL.json");
+		unityInstance = UnityLoader.instantiate("gameContainer_drone", "static/WebGL/WebGL.json");
     }
 
     /**
@@ -304,7 +305,7 @@ class ParrotMamboBlocks {
 
 	reset()
 	{
-		gameInstance.SendMessage("Drones", "Scratch3", "0,3");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_RESET_ALL");
 		return;
 	}
 
@@ -335,19 +336,19 @@ class ParrotMamboBlocks {
 
 	takeoff(args)
 	{
-		gameInstance.SendMessage("Drones", "Scratch3", "0,4");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_TAKE_OFF");
 		return;
 	}
 
 	landing(args)
 	{
-		gameInstance.SendMessage("Drones", "Scratch3", "0,5");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_LANDING");
 		return;
 	}
 
 	stop(args)
 	{
-		gameInstance.SendMessage("Drones", "Scratch3", "0,2");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_STOP");
 		return;
 	}
 	
@@ -358,7 +359,7 @@ class ParrotMamboBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n
-		gameInstance.SendMessage("Drones", "Scratch3", "0,120,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_GAZ,0," + a * tmp );
 
 		return;
 	}
@@ -370,7 +371,7 @@ class ParrotMamboBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n
-		gameInstance.SendMessage("Drones", "Scratch3", "0,110,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_PITCH,0," + a * tmp );
 
 		return;
 	}
@@ -382,7 +383,7 @@ class ParrotMamboBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n
-		gameInstance.SendMessage("Drones", "Scratch3", "0,100,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_ROLL,0," + a * tmp );
 
 		return;
 	}
@@ -394,7 +395,7 @@ class ParrotMamboBlocks {
 			a = -1;
 
 		var tmp = args.n > 100 ? 100 : args.n
-		gameInstance.SendMessage("Drones", "Scratch3", "0,130,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_YAW,0," + a * tmp );
 
 		return;
 	}
@@ -406,7 +407,7 @@ class ParrotMamboBlocks {
 			a = -1;
 
 		var tmp = args.n > 360 ? 360 : args.n
-		gameInstance.SendMessage("Drones", "Scratch3", "0,200,0," + a * tmp );
+		unityInstance.SendMessage("Drones", "Scratch3", id + "0,ACTION_CAP,0," + a * tmp );
 
 		return;
 	}
@@ -430,13 +431,13 @@ class ParrotMamboBlocks {
 				break;
 		}
 	
-		gameInstance.SendMessage("Drones", "Scratch3", "0,210," + a);
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_FLIP," + a);
 		return;
 	}	
 
 	light(args)
 	{
-		gameInstance.SendMessage("Drones", "Scratch3", "0,220,0," + args.n * 255);
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_LIGHT,0," + args.n * 255);
 		return;
 	}
 	
@@ -456,21 +457,21 @@ class ParrotMamboBlocks {
 				break;
 		}
 
-		gameInstance.SendMessage("Drones", "Scratch3", "0,230," + a);
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_GRAB," + a);
 		return;
 	}
 	
 	picture(args)
 	{
 		// WebGL側はコマンド未実装
-		gameInstance.SendMessage("Drones", "Scratch3", "0,7");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_PICTURE");
 		return;
 	}
 	
 	shoot(args)
 	{
 		// WebGL側はコマンド未実装
-		gameInstance.SendMessage("Drones", "Scratch3", "0,6");
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SHOOT");
 		return;
 	}
 	
@@ -497,7 +498,7 @@ class ParrotMamboBlocks {
 
 		var str = r * tmp_r + ":" + p * tmp_p + ":" + g * tmp_g + ":" + y * tmp_y;
 
-		gameInstance.SendMessage("Drones", "Scratch3", "0,140,0," + str );
+		unityInstance.SendMessage("Drones", "Scratch3", id + ",ACTION_SET_4_AXIS,0," + str );
 
 		return;
 	}
